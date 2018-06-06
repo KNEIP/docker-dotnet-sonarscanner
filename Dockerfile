@@ -45,9 +45,5 @@ RUN wget https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/
 
 ENV PATH="$SONAR_SCANNER_MSBUILD_HOME:$SONAR_SCANNER_MSBUILD_HOME/sonar-scanner-$SONAR_SCANNER_VERSION/bin:${PATH}"
 
-COPY run.sh $SONAR_SCANNER_MSBUILD_HOME/sonar-scanner-$SONAR_SCANNER_VERSION/bin/
-
 VOLUME $DOTNET_PROJECT_DIR
 WORKDIR $DOTNET_PROJECT_DIR
-
-ENTRYPOINT ["run.sh"]
