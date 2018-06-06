@@ -2,7 +2,9 @@
 
 Sonar Scanner MsBuild Dockerfile for .Net Core Projects
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/burakince/docker-dotnet-sonarscanner.svg)](https://hub.docker.com/r/burakince/docker-dotnet-sonarscanner/) [![Docker Automated build](https://img.shields.io/docker/automated/burakince/docker-dotnet-sonarscanner.svg)](https://hub.docker.com/r/burakince/docker-dotnet-sonarscanner/) [![Docker Build Status](https://img.shields.io/docker/build/burakince/docker-dotnet-sonarscanner.svg)](https://hub.docker.com/r/burakince/docker-dotnet-sonarscanner/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/francoiskarman/dotnetcore-sonarscanner.svg)](https://hub.docker.com/r/francoiskarman/dotnetcore-sonarscanner/)
+[![Docker Automated build](https://img.shields.io/docker/automated/francoiskarman/dotnetcore-sonarscanner.svg)](https://hub.docker.com/r/francoiskarman/dotnetcore-sonarscanner/)
+[![Docker Build Status](https://img.shields.io/docker/build/francoiskarman/dotnetcore-sonarscanner.svg)](https://hub.docker.com/r/francoiskarman/dotnetcore-sonarscanner/)
 
 ## This Image Using
 
@@ -47,13 +49,14 @@ dotnet sln ConsoleApplication1.sln add ConsoleApplication1.csproj
 Take login token from sonarqube server, change working directory to project directory and run this code;
 
 ```
-docker run --name dotnet-scanner -it --rm -v $(pwd):/project \
-  -e PROJECT_KEY=ConsoleApplication1 \
-  -e PROJECT_NAME=ConsoleApplication1 \
-  -e PROJECT_VERSION=1.0 \
-  -e HOST=http://localhost:9000 \
-  -e LOGIN_KEY=CHANGE_THIS_ONE \
-  burakince/docker-dotnet-sonarscanner
+docker start --name dotnetcore-scanner -v $(pwd):/project francoiskarman/dotnetcore-sonarscanner
+
+docker exec --name dotnetcore-scanner dotnet /opt/sonar-scanner-msbuild/SonarScanner.MSBuild.dll begin /k:<project-key>
+docker exec --name dotnetcore-scanner dotnet build
+docker exec --name dotnetcore-scanner dotnet /opt/sonar-scanner-msbuild/SonarScanner.MSBuild.dll end
+
+docker stop --name dotnetcore-scanner
+docker rm --name dotnetcore-scanner
 ```
 
 Note: If you have sonarqube as docker container, you must inspect sonarqube's bridge network IP address and use it in HOST variable.
