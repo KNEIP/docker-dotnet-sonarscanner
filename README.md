@@ -2,9 +2,9 @@
 
 Sonar Scanner MsBuild Dockerfile for .Net Core Projects
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/francoiskarman/dotnetcore-sonarscanner.svg)](https://hub.docker.com/r/francoiskarman/dotnetcore-sonarscanner/)
-[![Docker Automated build](https://img.shields.io/docker/automated/francoiskarman/dotnetcore-sonarscanner.svg)](https://hub.docker.com/r/francoiskarman/dotnetcore-sonarscanner/)
-[![Docker Build Status](https://img.shields.io/docker/build/francoiskarman/dotnetcore-sonarscanner.svg)](https://hub.docker.com/r/francoiskarman/dotnetcore-sonarscanner/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/kneip/dotnet-sonar.svg)](https://hub.docker.com/r/kneip/dotnet-sonar/)
+[![Docker Automated build](https://img.shields.io/docker/automated/kneip/dotnet-sonar.svg)](https://hub.docker.com/r/kneip/dotnet-sonar/)
+[![Docker Build Status](https://img.shields.io/docker/build/kneip/dotnet-sonar.svg)](https://hub.docker.com/r/kneip/dotnet-sonar)
 
 ## Using Example
 
@@ -28,12 +28,12 @@ dotnet sln ConsoleApplication1.sln add ConsoleApplication1.csproj
 Take login token from sonarqube server, change working directory to project directory and run this code;
 
 ```
-docker start --name dotnetcore-scanner -v $(pwd):/project francoiskarman/dotnetcore-sonarscanner
+docker start --name dotnet-sonar -v $(pwd):/project kneip/dotnet-sonar
 
-docker exec --name dotnetcore-scanner dotnet sonarscanner begin /k:<project-key>
-docker exec --name dotnetcore-scanner dotnet build
-docker exec --name dotnetcore-scanner dotnet sonarscanner end
+docker exec --name dotnet-sonar dotnet sonarscanner begin /k:<project-key>
+docker exec --name dotnet-sonar dotnet build
+docker exec --name dotnet-sonar dotnet sonarscanner end
 
-docker stop --name dotnetcore-scanner
-docker rm --name dotnetcore-scanner
+docker stop --name dotnet-sonar
+docker rm --name dotnet-sonar
 ```
