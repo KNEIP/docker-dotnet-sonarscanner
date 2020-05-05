@@ -1,21 +1,31 @@
-FROM microsoft/dotnet:2.1-sdk
-
+FROM microsoft/dotnet:2.2-sdk
 LABEL maintainer="Kneip DevOps Team <devops@kneip.com>"
 
-# Install JRE
-# source: https://github.com/dockerfile/java/blob/master/oracle-java8/Dockerfile
-RUN \
-  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-  add-apt-repository -y ppa:webupd8team/java && \
-  apt-get update && \
-  apt-get install -y oracle-java8-installer && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer
+ENV PLANTUML_VERSION=1.2018.5
 
-ENV JAVA_HOME "/usr/lib/jvm/java-8-oracle"
+RUN apt-get update && \
+    apt-get install -y curl && \
+    apt-get install -y openjdk-8-jdk && \
+    apt-get install -y ant && \
+    apt-get install -y libc6-dev && \
+    apt-get install -y libgdiplus && \
+    apt-get clean;
 
-# Install dotnet-sonarscanner
-ENV PATH "${PATH}:/root/.dotnet/tools"
+# Fix certificate issues
+RUN apt-get update && \
+    apt-get install ca-certificates-java && \
+    apt-get clean && \
+    update-ca-certificates -f;
 
-RUN \
-  dotnet tool install --global dotnet-sonarscanner
+# Remove cache to reduce docker size
+RUN rm -rf /var/lib/apt/lists/*
+
+RUN ln -s /usr/lib/libgdiplus.so /usr/lib/gdiplus.dll
+RUN ln -s /usr/lib/libc6-dev.so /usr/lib/c6-dev.dll
+
+RUN export PATH="$PATH:~/.dotnet/tools:/root/.dotnet/tools"
+RUN dotnet tool install --global dotnet-sonarscanner
+
+# Setup JAVA_HOME -- useful for docker commandline
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+ENV LANG en_US.UTF-8
