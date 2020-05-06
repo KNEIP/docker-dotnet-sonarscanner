@@ -3,8 +3,7 @@
 Sonar Scanner MsBuild Dockerfile for .Net Core Projects
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/kneip/dotnet-sonar.svg)](https://hub.docker.com/r/kneip/dotnet-sonar/)
-[![Docker Automated build](https://img.shields.io/docker/automated/kneip/dotnet-sonar.svg)](https://hub.docker.com/r/kneip/dotnet-sonar/)
-[![Docker Build Status](https://img.shields.io/docker/build/kneip/dotnet-sonar.svg)](https://hub.docker.com/r/kneip/dotnet-sonar)
+![.github/workflows/docker.yml](https://github.com/KNEIP/dotnet-sonar/workflows/.github/workflows/docker.yml/badge.svg)
 
 ## Using Example
 
