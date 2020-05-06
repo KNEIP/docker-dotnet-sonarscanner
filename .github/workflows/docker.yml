@@ -1,0 +1,12 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build the Docker image
+      uses: docker/build-push-action@v1
+      with:
+        repository: kneip/dotnet-sonar
+        tag_with_ref: true
+        push: false
