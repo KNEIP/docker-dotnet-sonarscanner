@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.2-sdk
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
 LABEL maintainer="Kneip DevOps Team <devops@kneip.com>"
 
 ENV PLANTUML_VERSION=1.2018.5
