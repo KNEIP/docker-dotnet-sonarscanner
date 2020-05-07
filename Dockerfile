@@ -10,6 +10,8 @@ RUN apt-get update && \
     apt-get install -y ant && \
     apt-get install -y libc6-dev && \
     apt-get install -y libgdiplus && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get install -y nodejs && \
     apt-get clean;
 
 # Fix certificate issues
